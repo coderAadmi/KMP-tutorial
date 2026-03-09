@@ -41,6 +41,8 @@ fun App() {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+
+            Text(getPlatformName())
             Button(onClick = { todoViewmodel.loadTodos()}) {
                 Text("Click me!")
             }
