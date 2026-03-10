@@ -34,6 +34,9 @@ import tutorial.composeapp.generated.resources.compose_multiplatform
 fun App(todoDb: TodoDb) {
     MaterialTheme {
         val todoViewmodel  =  viewModel<TodoViewmodel>(factory = todoModelFactory)
+        todoViewmodel.setTodoDao(todoDb.getTodoDao())
+
+
         val screenState by todoViewmodel.uiState.collectAsStateWithLifecycle()
         Column(
             modifier = Modifier
@@ -42,6 +45,7 @@ fun App(todoDb: TodoDb) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+
 
             Text(getPlatformName())
             Button(onClick = { todoViewmodel.loadTodos()}) {
@@ -59,16 +63,20 @@ fun App(todoDb: TodoDb) {
                     Text("Click on load to fetch Todos")
                 }
                 is TodoScreenState.Success -> {
-                    LazyColumn(Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        items(state.todos){ todo ->
-                            Card(Modifier.fillMaxWidth()) {
-                                Column(Modifier.fillMaxWidth().padding(12.dp)) {
-                                    Text("Title ${todo.title}")
-                                }
-                            }
+                   Text("Fetched successfully from internet")
+                }
+            }
+
+            val todosState by todoViewmodel.todos.collectAsStateWithLifecycle()
+
+            LazyColumn(Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(todosState){ todo ->
+                    Card(Modifier.fillMaxWidth()) {
+                        Column(Modifier.fillMaxWidth().padding(12.dp)) {
+                            Text("Title ${todo.title}")
                         }
                     }
                 }

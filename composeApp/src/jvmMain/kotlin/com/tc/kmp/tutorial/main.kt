@@ -5,6 +5,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.tc.kmp.tutorial.db.getDatabaseBuilder
 
 fun main() = application {
@@ -13,6 +14,6 @@ fun main() = application {
         title = "Tutorial",
         state = rememberWindowState(size = DpSize(600.dp, 800.dp))
     ) {
-        App(getDatabaseBuilder().build())
+        App( (getDatabaseBuilder().setDriver(BundledSQLiteDriver()).build()) )
     }
 }

@@ -1,5 +1,6 @@
 package com.tc.kmp.tutorial.network
 
+import com.tc.kmp.tutorial.db.TodoEntity
 import kotlinx.serialization.Serializable
 
 /**
@@ -20,3 +21,6 @@ data class TodoDTO(
     val title: String,
     val completed: Boolean
 )
+
+
+fun TodoDTO.toEntity() = TodoEntity(id, userId,title, completed)
