@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.tc.kmp.tutorial.db.TodoDb
 import org.jetbrains.compose.resources.painterResource
 
 import tutorial.composeapp.generated.resources.Res
@@ -30,7 +31,7 @@ import tutorial.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
-fun App() {
+fun App(todoDb: TodoDb) {
     MaterialTheme {
         val todoViewmodel  =  viewModel<TodoViewmodel>(factory = todoModelFactory)
         val screenState by todoViewmodel.uiState.collectAsStateWithLifecycle()
